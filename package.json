@@ -23,7 +23,7 @@
         "oxlint-tsgolint": "^0.23.0",
         "typescript": "^5.2.2",
         "vite": "^8.0.0",
-        "vue-tsc": "^2.2.4"
+        "vue-tsc": "^3.3.7"
     },
     "dependencies": {
         "@inertiajs/vite": "^3.0.0",
