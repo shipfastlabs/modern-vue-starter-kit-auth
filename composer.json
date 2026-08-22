@@ -1,0 +1,133 @@
+{
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "shipfastlabs/modern-vue-starter-kit-auth",
+  "type": "project",
+  "description": "Laravel starter kit with opinionated modern tooling setup.",
+  "keywords": [
+    "laravel",
+    "framework"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.4",
+    "inertiajs/inertia-laravel": "^3.0",
+    "laravel/chisel": "^0.1.0",
+    "laravel/fortify": "^1.37.2",
+    "laravel/framework": "^13.17",
+    "laravel/tinker": "^3.0",
+    "laravel/wayfinder": "^0.1.14",
+    "nunomaduro/essentials": "^1.2"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^3.7",
+    "driftingly/rector-laravel": "^2.5",
+    "fakerphp/faker": "^1.24",
+    "larastan/larastan": "^3.9",
+    "laravel/pail": "^1.2.5",
+    "laravel/pao": "^1.0.6",
+    "laravel/pint": "^1.27",
+    "laravel/sail": "^1.53",
+    "mockery/mockery": "^1.6",
+    "nunomaduro/collision": "^8.9.3",
+    "pestphp/pest": "^5.1",
+    "pestphp/pest-plugin-agent": "^5.0",
+    "pestphp/pest-plugin-browser": "^5.0",
+    "pestphp/pest-plugin-laravel": "^5.0",
+    "pestphp/pest-plugin-rector": "^5.0",
+    "pestphp/pest-plugin-type-coverage": "^5.0",
+    "rector/rector": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "setup": [
+      "composer install",
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "@php artisan key:generate",
+      "@php artisan migrate --force",
+      "npm install",
+      "npm run build"
+    ],
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "@php artisan dev"
+    ],
+    "lint": [
+      "./vendor/bin/rector",
+      "./vendor/bin/pint --parallel"
+    ],
+    "lint:check": [
+      "pint --parallel --test"
+    ],
+    "ci:check": [
+      "Composer\\Config::disableProcessTimeout",
+      "npm run lint:check",
+      "npm run format:check",
+      "npm run types:check",
+      "@test"
+    ],
+    "types:check": [
+      "phpstan analyse"
+    ],
+    "test": [
+      "@test:type-coverage",
+      "@test:unit",
+      "@test:lint",
+      "@test:types"
+    ],
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-update-cmd": [
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi",
+      "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+      "@php artisan migrate --graceful --ansi"
+    ],
+    "pre-package-uninstall": [
+      "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+    ],
+    "test:lint": [
+      "./vendor/bin/pint --parallel --test",
+      "./vendor/bin/rector --dry-run"
+    ],
+    "test:types": "./vendor/bin/phpstan analyse --memory-limit=-1",
+    "test:type-coverage": "php -d memory_limit=-1 vendor/bin/pest --type-coverage",
+    "test:unit": "pest"
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": [],
+      "installer": {
+        "post-create-project": []
+      }
+    }
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "allow-plugins": {
+      "pestphp/pest-plugin": true,
+      "php-http/discovery": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
