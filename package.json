@@ -17,7 +17,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "@types/node": "^22.13.5",
     "@vitejs/plugin-vue": "^6.0.0",
-    "concurrently": "^10.0.3",
+    "concurrently": "^10.0.6",
     "oxfmt": "^0.64.0",
     "oxlint": "^1.79.0",
     "oxlint-tsgolint": "^7.0.2001",
